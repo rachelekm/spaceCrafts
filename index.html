@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Customize Cosmic Images for Crafting"/>
+        <title>Space Crafts</title>
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    </head>
+    <body>
+        <!--move loading icon to img folder so local src
+        <div id="loadingIconPage" hidden><img src='https://i.imgur.com/3QWroou.gif?1' alt='Loading Animation'></div>-->
+        <header role="banner">
+            <h1>Space Crafts</h1> <!--Link to homepage?-->
+            <nav>
+                <ul>
+                    <!--Build a Design-->
+                    <!--Favorites-->
+                    <!--How It Works-->
+                </ul>
+            </nav>
+        </header>
+        <main role ='main' class='viewContainer'>
+            <div class='homePageContainer'></div>
+                <div class='homeSearchBox'></div>
+                <h2>Description</h2>
+                <form aria-label='SearchForm' class="homeSearchForm">
+                    <legend for='searchInput'></legend>
+                    <input type='text' id='searchInput' name='searchInput' aria-label='searchAddressInput' placeholder='A galaxy far far away...' required>
+                    <button role="button" type="submit" class="submitSearchButton">Search</button>
+                </form>
+            <div class='designContainer' hidden></div>
+                <div class='nasaImgResultsBox'></div>
+            <div class='favoritesContainer'></div>
+            <div class='howItWorksContainer'></div>
+            <div class='resultsContainer'></div>
+        </main>
+        <script src="js/index.js"></script>
+    </body>
+</html>
