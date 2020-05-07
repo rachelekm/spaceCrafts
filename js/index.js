@@ -15,7 +15,12 @@ let modelData = {
 let updateData = {
     storeNasaData: function(data){
         console.log(data);
-        data.collection.items.forEach(item => modelData.nasaImageData.items.push({src: item.links[0].href, alt: item.data[0].description}));
+        if(data.collection.items.length === 0){
+            clientView.errorPage('no items');
+        }
+        else {
+            data.collection.items.forEach(item => modelData.nasaImageData.items.push({src: item.links[0].href, alt: `${item.data[0].title} from ${item.data[0].secondary_creator}`}));
+        }
     },
     resetSearchResults: function(){
         modelData.nasaImageData.items = [];
@@ -35,7 +40,7 @@ let clientView = {
         });
     },
     callNasaAPI: function(q){
-        modelData.nasaAPICallData.q = `title=${q}&media_type=image`;
+        modelData.nasaAPICallData.q = `q=${q}&media_type=image`;
         $.getJSON(modelData.nasaAPICallData.callRoot, modelData.nasaAPICallData.q, updateData.storeNasaData)
         .fail(function(err){
             clientView.errorPage(err);
@@ -44,7 +49,10 @@ let clientView = {
     initializeDesignContainer: function(){
         $('.designContainer').show();
         //instead of timer, figure out to how have this load after data is gathered
-        setTimeout(function(){ clientView.populateImageScroll(); }, 500);
+        setTimeout(function(){ 
+            if (modelData.nasaImageData.items.length > 0){
+                clientView.populateImageScroll(); 
+            }}, 500);
     },
     populateImageScroll: function(){
         for(let i=0; i < 10; i++){
@@ -53,6 +61,9 @@ let clientView = {
         }
     },
     errorPage: function(e){
+        if( e === 'no items'){
+            $('.nasaImgResultsBox').append(`<p>Uh oh, looks like we can't find anything that matches that search! Try again.</p>`);
+        }
         console.log(e);
     }
 };
