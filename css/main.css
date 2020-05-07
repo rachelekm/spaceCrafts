@@ -1,4 +1,72 @@
-img {
-    width: 200px;
-    height: 200px;
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+header {
+    height: 100px;
+}
+
+.navLogo {
+    margin: 0;
+}
+
+.viewContainer {
+    height: calc(100% - 100px);
+    width: 100%;
+}
+
+.homePageSearchDesc {
+    margin: 0;
+}
+
+.designContainer {
+    width: 100%;
+    height: 80%;
+}
+
+.editingContainer, .displayContainer {
+    height: 100%;
+    width: 50%;
+    float: left;
+    padding: 2%;
+}
+
+.previewDisplay {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.editingTabs {
+    margin: 0;
+}
+
+.nasaImgResultsBox {
+    width: 100%;
+    height: 100%;
+    padding: 10%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.nasaScrollImg, .nasaPreviewImg {
+    width: 100%;
+}
+
+.nasaPreviewImg  {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }

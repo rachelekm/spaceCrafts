@@ -38,6 +38,13 @@ let clientView = {
             clientView.callNasaAPI(query);
             clientView.initializeDesignContainer();
         });
+        $('.nasaImgResultsBox').on('click', '.nasaScrollImg', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            $('.previewDisplay').empty();
+            let imgTarget = event.target.id;
+            clientView.populateDesignPreview(imgTarget);
+        });
     },
     callNasaAPI: function(q){
         modelData.nasaAPICallData.q = `q=${q}&media_type=image`;
@@ -52,13 +59,17 @@ let clientView = {
         setTimeout(function(){ 
             if (modelData.nasaImageData.items.length > 0){
                 clientView.populateImageScroll(); 
-            }}, 500);
+            }}, 1000);
     },
     populateImageScroll: function(){
         for(let i=0; i < 10; i++){
            let imgObject = modelData.nasaImageData.items[i];
-           $('.nasaImgResultsBox').append(`<img class='nasaScrollImg' src='${imgObject.src}' alt='${imgObject.alt}'>`);
+           $('.nasaImgResultsBox').append(`<img class='nasaScrollImg' id='${i}' src='${imgObject.src}' alt='${imgObject.alt}'>`);
         }
+    },
+    populateDesignPreview: function(i){
+        let imgObject = modelData.nasaImageData.items[i];
+        $('.previewDisplay').html(`<img class='nasaPreviewImg' id='${i}' src='${imgObject.src}' alt='Preview for customized image of ${imgObject.alt}'>`)
     },
     errorPage: function(e){
         if( e === 'no items'){
