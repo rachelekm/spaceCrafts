@@ -8,6 +8,9 @@ let modelData = {
     },
     nasaImageData: {
         items: [] 
+    },
+    previewImage: {
+
     }
 };
 
@@ -25,6 +28,11 @@ let updateData = {
     resetSearchResults: function(){
         modelData.nasaImageData.items = [];
         $('.nasaImgResultsBox').empty();
+    },
+    storeTargetImage: function(img, width, height){
+        modelData.previewImage.src = img;
+        modelData.previewImage.width = width;
+        modelData.previewImage.height = height;
     }
 }
 
@@ -48,6 +56,27 @@ let clientView = {
 
             let imgTarget = event.target;
             clientView.populateDesignPreview(imgTarget);
+        });
+        $('.imageFilterButton').on('click', function(){
+            
+            let image = new MarvinImage();
+            console.log(modelData.previewImage);
+            image.load(modelData.previewImage.src, imageLoaded);
+
+            function imageLoaded(){
+                let canvas = document.getElementById('previewDisplay');
+                let context = canvas.getContext('2d');
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                let imageOut = new MarvinImage(modelData.previewImage.width, modelData.previewImage.height);
+  
+                // Edge Detection (Prewitt approach)
+                Marvin.prewitt(image, imageOut);
+                // Invert color
+                Marvin.invertColors(imageOut, imageOut);
+                // Threshold
+                Marvin.thresholding(imageOut, imageOut, 220);
+                imageOut.draw(canvas); 
+            }
         });
     },
     callNasaAPI: function(q){
@@ -81,6 +110,9 @@ let clientView = {
         let newCanvasDim = this.calcAspectRatio(img);
         canvas.width = newCanvasDim.newW;
         canvas.height = newCanvasDim.newH;
+
+        updateData.storeTargetImage(img.src, newCanvasDim.newW, newCanvasDim.newH);
+
         imageObj.onload = function(){
             ctx.drawImage(this, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, newCanvasDim.newW, newCanvasDim.newH);
         };

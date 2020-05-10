@@ -165,6 +165,7 @@ MarvinImage.prototype.load = function(url, callback){
 	this.image.onload = function(){ref.callbackImageLoaded(ref)};
 	this.image.crossOrigin="anonymous";
 	this.image.src = url;
+	console.log(this);
 };
 
 // WARN: the callback "this" object is the reference to js Image object. 
